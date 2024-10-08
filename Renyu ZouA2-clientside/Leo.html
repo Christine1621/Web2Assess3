@@ -1,0 +1,68 @@
+<!-- Declare the document type to HTML and set the language to English -->
+<!DOCTYPE html>
+<html lang="en">
+<!-- Set the character set to UTF-8 to ensure responsive design on mobile devices, connect to CSS stylesheets, and set page titles -->
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Fundraiser Details</title>
+</head>
+
+<body>
+    <nav>
+        <a href="index.html">Home page</a>
+        <a href="Fundraisers.html">Search fundraisers page</a>
+    </nav>
+    <section id="fundraiser-details" style="text-align: center;padding-top: 20px;"></section>
+
+    <dialog id="favDialog">
+        <p>This feature is under construction.</p>
+        <form method="dialog">
+            <button>OK</button>
+        </form>
+    </dialog>
+    <script>
+
+        const urlParams = new URLSearchParams(window.location.search);
+        const fundraiserId = urlParams.get('id');
+
+        fetch(`http://localhost:3000/api/fundraiser/${fundraiserId}`)
+            // Convert the response from the server to JSON format
+            .then(response => response.json())
+            // Once the JSON data is successfully parsed, process the list of fundraisers
+            .then(fundraiser => {
+                const detailsContainer = document.getElementById('fundraiser-details');
+                detailsContainer.innerHTML = `
+                    <h3>${fundraiser.CAPTION}</h3>
+                    <p>Fundraiser ID: ${fundraiser.FUNDRAISER_ID}</p>
+                    <p>Organizer: ${fundraiser.ORGANIZER}</p>
+                    <p>Target Funding: $${fundraiser.TARGET_FUNDING}</p>
+                    <p>Current Funding: $${fundraiser.CURRENT_FUNDING}</p>
+                    <p>City: ${fundraiser.CITY}</p>
+                    <p>Active: ${fundraiser.ACTIVE ? 'Yes' : 'No'}</p>
+                    <p>Category: ${fundraiser.CATEGORY_ID}</p>
+                `;
+                document.getElementById('fundraiser-details').innerHTML = details;
+            })
+            .catch(error => console.error('Error fetching fundraiser details:', error));
+        document.getElementById('donate-button').addEventListener('click', () => {
+            alert('This feature is under construction.');
+        });
+
+    </script>
+    <!-- Create a donate button-->
+    <button id="donate-button">Donate</button>
+
+    <script>
+        //Add a click event listener to the donate button
+        document.getElementById("donate-button").addEventListener("click", function () {
+            favDialog.showModal()//When the button is clicked, a modal dialog is displayed
+        });
+    </script>
+
+
+</body>
+
+</html>

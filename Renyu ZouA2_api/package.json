@@ -1,0 +1,23 @@
+{
+  "name": "crowdfunding_api",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "dev": "node index.js",
+    "start": "pm2 start index.js --name crowdfunding-api",
+    "stop": "pm2 stop crowdfunding-api",
+    "restart": "pm2 restart crowdfunding-api",
+    "delete": "pm2 delete crowdfunding-api",
+    "logs": "pm2 logs crowdfunding-api"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "body-parser": "^1.20.3",
+    "cors": "^2.8.5",
+    "express": "^4.21.0",
+    "mysql": "^2.18.1"
+  }
+}
