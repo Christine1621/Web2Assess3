@@ -282,3 +282,43 @@ dialog::backdrop {
 }
 
 
+  /* Table styles */
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    font-size: 16px;
+  }
+  
+  table th, table td {
+    padding: 12px 15px; /* Add padding to create space between text and cell borders */
+    text-align: left;
+    border-bottom: 1px solid #ddd; /* Border between rows */
+  }
+  
+  table th {
+    background-color: #f0f0f0;
+    font-weight: bold;
+    border-bottom: 2px solid #ccc;
+  }
+  
+  table tr:nth-child(even) {
+    background-color: #f9f9f9; /* Alternating row color */
+  }
+  
+  table tr:hover {
+    background-color: #e0f7d4; /* Highlight row on hover */
+  }
+  
+  table td button {
+    padding: 5px 10px;
+    border: none;
+    background-color: #5ca9fb;
+    color: white;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  table td button:hover {
+    background-color: #3a8cdb;
+  }
