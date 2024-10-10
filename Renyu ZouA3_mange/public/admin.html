@@ -1,0 +1,93 @@
+<!-- Declare the document type to HTML and set the language to English -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="styles.css">
+  <title>Admin - Fundraiser Management</title>
+</head>
+
+<body>
+  <!-- Navigation -->
+  <nav>
+    <a href="http://localhost:8080/">Home page</a>
+    <a href="http://localhost:8080/Fundraisers">Search fundraisers page</a>
+  </nav>
+
+  <h1 class="title">Admin - Manage Fundraisers</h1>
+
+  <!-- Main content area -->
+  <div class="flex content">
+    <div class="flex-8 card">
+      <h2>Fundraiser List</h2>
+      <!-- Add button -->
+      <div class="centered-link">
+        <button id="add-fundraiser" onclick="location.href='http://localhost:8080/AddFundraiser'">Add New Fundraiser</button>
+      </div>
+
+      <!-- Fundraiser table -->
+      <table id="fundraiser-table" class="table">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Organizer</th>
+            <th>Caption</th>
+            <th>Target Funding</th>
+            <th>Current Funding</th>
+            <th>Status</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- Fundraiser data will be dynamically populated here -->
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <script>
+    // Fetch the fundraisers data from the API and populate the table
+    fetch('http://localhost:3000/api/fundraisers')
+      .then(response => response.json())
+      .then(fundraisers => {
+        const tableBody = document.querySelector('#fundraiser-table tbody');
+        fundraisers.forEach(fundraiser => {
+          const row = document.createElement('tr');
+          row.innerHTML = `
+            <td>${fundraiser.FUNDRAISER_ID}</td>
+            <td>${fundraiser.ORGANIZER}</td>
+            <td>${fundraiser.CAPTION}</td>
+            <td>$${fundraiser.TARGET_FUNDING}</td>
+            <td>$${fundraiser.CURRENT_FUNDING}</td>
+            <td>${fundraiser.ACTIVE ? 'Active' : 'Inactive'}</td>
+            <td>
+              <button onclick="editFundraiser(${fundraiser.FUNDRAISER_ID})">Edit</button>
+              <button onclick="deleteFundraiser(${fundraiser.FUNDRAISER_ID})">Delete</button>
+            </td>
+          `;
+          tableBody.appendChild(row);
+        });
+      })
+      .catch(error => console.error('Error fetching fundraisers:', error));
+
+    function editFundraiser(id) {
+      window.location.href = `http://localhost:8080/EditFundraiser?id=${id}`;
+    }
+
+    function deleteFundraiser(id) {
+      // Handle delete logic (e.g., API request to delete the fundraiser)
+      alert(`Delete fundraiser with ID: ${id}`);
+    }
+  </script>
+
+  <footer>
+    <p>Contact information</p>
+    <p>Email: r.zou.12@student.scu.edu.au</p>
+    <p>Telephone code: 123-456-7890</p>
+    <p>If you have any questions, please call the fundraising consultant!</p>
+  </footer>
+</body>
+
+</html>
