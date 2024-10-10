@@ -1,0 +1,284 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  color: #333;
+  background-color: #f5ffe8;
+}
+
+/*导航*/
+nav {
+  background-color: #d6f8a4;
+  padding: 20px 20px;
+}
+
+/*导航字体*/
+nav a {
+  margin: 0 30px;
+  text-decoration: none;
+  color: #584343;
+  margin-right: 50px;
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.centered-link {
+  text-align: center;
+  margin: 10px 0;
+  cursor: pointer;
+}
+.centered-link:hover {
+  background-color: #8e8e8e;
+}
+.centered-link a {
+  color: #333;
+  text-decoration: none;
+}
+
+/*项目详情按钮*/
+a {
+  color: #30354f;
+  margin: 10px auto;
+  font-size: 14px;
+  border-radius: 8px;
+  width: 1500px;
+  height: auto;
+  
+}
+
+a:hover {
+  
+  text-decoration: underline;
+}
+
+header {
+  text-align: center;
+  margin: 20px 0;
+}
+
+#search-form {
+  font-size: 16px;
+}
+#search-form .search-box {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+#search-form .search-box .input {
+  width: 450px;
+  outline: none;
+  border: 1px solid #eee;
+  background-color: #f9f9f9;
+  padding: 10px;
+  padding-right: 0;
+  font-size: 14px;
+  border-radius: 6px 0 0 6px;
+  margin: 0;
+}
+#search-form .search-box button {
+  border-radius: 0 6px 6px 0;
+  margin: 0;
+}
+
+#search-form>p {
+  font-size: 18px;
+  margin-bottom: 3px;
+}
+
+#search-form label {
+  padding-right: 15px;
+  display: inline-block;
+  font-size: inherit;
+  display: flex;
+  align-items: center;
+}
+
+#search-form input {
+  font-size: inherit;
+  margin: 2px;
+}
+
+#search-form .searchFilterItem {
+  display: flex;
+  margin-bottom: 10px;
+}
+
+#results {
+  margin: 0 !important;
+  margin-top: 30px !important;
+}
+
+#fundraisers, #results {
+  margin: 0 60px 30px;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 30px;
+}
+
+#fundraisers div, 
+#results div {
+  background-color: #e6ffda;
+  border: 1px solid #dddddd;
+  padding: 10px;
+  width: 100%;
+  max-width: 600px;
+}
+
+#fundraisers p,
+#results p {
+  font-size: 14px;
+}
+
+#fundraiser-list,
+#results {
+  list-style-type: none;
+  padding: 0;
+}
+
+#donate-button {
+  padding: 15px 30px;
+  font-size: 18px;
+  background-color: #095739;
+  color: rgb(255, 255, 255);
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  display: block;
+  margin: 0 auto;
+}
+
+#button-container {
+  text-align: center;
+  margin-top: 50px;
+}
+
+button {
+  text-align: center;
+  margin-top: 40px;
+  color: #000;
+  padding: 10px 20px;
+  border: 1px solid #eee;
+  cursor: pointer;
+}
+
+button:hover {
+  text-align: center;
+  margin-top: 40px;
+  padding: 10px 20px;
+  border: 1px solid #eee;
+  background-color: #eaeaea;
+}
+
+.title {
+  text-align: center;
+  margin: 30px 0 0px;
+  font-size: 50px;
+}
+
+.flex {
+  display: flex;
+}
+
+.flex-4 {
+  flex: 8;
+  margin-left: 30px;
+}
+
+.flex-8 {
+  flex: 8;
+}
+
+.content {
+  margin: 40px 60px;
+}
+
+h1 {
+  color: #020078;
+}
+
+h2 {
+  margin-bottom: 9px;
+  font-size: 20px;
+}
+
+p {
+  line-height: 1.25;
+  color: #333;
+}
+
+b {
+  font-weight: 500;
+  color: #6966ff;
+}
+
+.content-list {
+  max-height: 350px;
+  overflow: auto;
+  padding: 0 10px;
+}
+
+.content-list p {
+  margin-bottom: 20px;
+}
+
+.flex-4 div {
+  margin-bottom: 30px;
+}
+.flex-4 div:last-child {
+  margin-bottom: 0;
+}
+
+.card {
+  padding: 12px;
+  border: 1px solid #dddddd;
+}
+
+.card h2 {
+  background-color: #efefef;
+  color: #444;
+  margin: -12px;
+  padding: 10px;
+}
+
+.card div {
+  margin-top: 20px;
+  height: 100%;
+  overflow: auto;
+}
+
+footer {
+  padding: 20px 60px;
+  background-color: #efefef;
+}
+
+.fixed-bottom {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+}
+
+
+dialog {
+  width: 300px;
+  margin: auto;
+  border: 1px solid #ccc;
+  padding: 20px;
+  border-radius: 6px;
+}
+
+dialog::backdrop {
+  background-color: rgba(0, 0, 0, 0.3);
+}
+#fundraiser-details h3 {
+  margin-bottom: 15px; /* Add space below the heading */
+}
+
+#fundraiser-details p {
+  margin: 10px 0; /* Add vertical spacing between paragraphs */
+}
+
+
