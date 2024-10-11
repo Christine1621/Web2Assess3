@@ -9,6 +9,8 @@ app.use(bodyParser.json());
 
 // 创建API端点
 
+//查询活跃的筹款活动
+
 // 1. 获取所有筹款活动
 app.get('/api/fundraisers', (req, res) => {
   const sql = 'SELECT f.*,c.NAME FROM FUNDRAISER f, CatEGORY c WHERE f.CATEGORY_ID = c.CATEGORY_ID'; // 修改为 FUNDRAISER
@@ -30,6 +32,72 @@ app.get('/api/donations/:id', (req, res) => {
         res.json(results);
     })
 })
+
+
+//获取筹款类型以及数量
+app.get('/api/categoryCount', (req, res) => {
+    const sql = 'SELECT c.NAME, COUNT(*) AS count FROM FUNDRAISER f, CatEGORY c WHERE f.CATEGORY_ID = c.CATEGORY_ID GROUP BY c.NAME';
+    db.query(sql, (err, results) => {
+      if (err) {
+        return res.status(500).json({ error: err.message });
+      }
+      res.json(results);
+    })
+})
+//统计捐款与捐款数量
+app.get('/api/statistics', (req, res) => {
+    const sql = 'SELECT SUM(AMOUNT) AS total_amount, COUNT(*) AS total_donations FROM DONATION';
+    let data={
+        amount:0,
+        donations:0,
+        count:0
+    }
+    db.query(sql, (err, results) => {
+      if (err) {
+        return res.status(500).json({ error: err.message });
+      }
+      data.amount=results[0].total_amount
+      data.donations=results[0].total_donations
+      const sql1 = 'select count(FUNDRAISER_ID) AS count from fundraiser where CURRENT_FUNDING >= TARGET_FUNDING'
+      db.query(sql1, (err, results) => {
+          if (err) {
+              return res.status(500).json({ error: err.message });
+          }
+          data.count=results[0].count
+          res.json(data);
+      })
+      
+
+    })
+
+})
+
+//修改筹款人
+app.put('/api/edit/fundraiser', (req, res) => {
+    const { id,caption, organizer, targetFunding, currentFunding, city, category } = req.body;
+
+    const sql = 'UPDATE FUNDRAISER SET CAPTION = ?, ORGANIZER = ?, TARGET_FUNDING = ?, CURRENT_FUNDING = ?, CITY = ?, CATEGORY_ID = ? WHERE FUNDRAISER_ID = ?';
+    db.query(sql, [caption, organizer, targetFunding, currentFunding, city, category, id], (err, results) => {
+        if (err) {
+            return res.status(500).json({ error: err.message });
+        }
+        res.json({ message: 'Fundraiser updated successfully' });
+    });
+});
+
+//添加筹款人
+app.post('/api/add/fundraiser', (req, res) => {
+    const { caption, organizer, targetFunding, currentFunding, city, category } = req.body;
+
+    const sql = 'INSERT INTO FUNDRAISER (CAPTION, ORGANIZER, TARGET_FUNDING, CURRENT_FUNDING, CITY, CATEGORY_ID,ACTIVE) VALUES (?, ?, ?, ?, ?, ?,1)';
+    db.query(sql, [caption, organizer, targetFunding, currentFunding, city, category], (err, results) => {
+        if (err) {
+            return res.status(500).json({ error: err.message });
+        }
+        res.status(201).json({ message: 'Fundraiser created successfully' });
+    });
+});
+
 //获取所有城市
 app.get('/api/cities',(req,res)=>{
   const sql = 'SELECT CITY FROM FUNDRAISER GROUP BY CITY';

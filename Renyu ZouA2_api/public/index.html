@@ -49,27 +49,46 @@
       <div class="card">
         <h2>Fundraising Project statistics:</h2>
         <div>
-          <p>The total amount of crowdfunding is <b>$6383915273.78</b> ! !</p>
-          <p>The total number of supporters is <b>2,418,475</b> !</p>
-          <p>The total number of successful crowdfunding people was <b>26,389</b> !</p>
+          <p>The total amount of crowdfunding is <b id="amount">$6383915273.78</b> ! !</p>
+          <p>The total number of support actions is <b id="donations">2,418,475</b> !</p>
+          <p>The total number of successful crowdfunding people was <b id="count">26,389</b> !</p>
         </div>
       </div>
       <div class="card">
         <h2>Fundraising Project Category ID:</h2>
-        <div>
-          <p>Health:1</p>
-          <p>Environment:2</p>
-          <p>Community Support:3</p>
-          <p>Education:4</p>
+        <div id="categoryCount"></div>
         </div>
       </div>
     </div>
   </div>
   <!--Set up a section for dynamically loading the project-->
   <section id="fundraisers"></section>
-
+  
   <script>
 
+    //获取统计数据
+    fetch('http://localhost:3000/api/statistics').then(
+      response => response.json()
+    ).then(data=>{
+      console.log(data)
+      document.getElementById('amount').innerText = "$"+data.amount;
+      document.getElementById('donations').innerText = data.donations;
+      document.getElementById('count').innerText = data.count;
+    }
+
+    )
+    
+    //获取所有的类型的数量
+    fetch('http://localhost:3000/api/categoryCount').then(
+      response => response.json()
+    ).then(data=>{
+      console.log(data)
+      document.getElementById('categoryCount').innerHTML = ``;
+      data.forEach(item=>{
+        document.getElementById('categoryCount').innerHTML += `<p>${item.NAME}: ${item.count}</p>`;
+      })
+     
+    })
     fetch('http://localhost:3000/api/fundraisers')
       // Convert the response from the server to JSON format
       .then(response => response.json())
@@ -90,8 +109,8 @@
                 <p>Active: ${fundraiser.ACTIVE ? 'Yes' : 'No'}</p>
                 <p>Category:${fundraiser.NAME}</p>
                 <p>Category: ${fundraiser.CATEGORY_ID}</p>
-                <div class="centered-link">
-                    <a href="http://localhost:8080/Leo?id=${fundraiser.FUNDRAISER_ID}">View Details</a>
+                <div class="centered-link" onclick="window.location.href='http://localhost:8080/Leo?id=${fundraiser.FUNDRAISER_ID}'">
+                    <p>View Details</p>
                 </div>
             `;
           container.appendChild(fundraiserElement);//Attach each constructed element to the container

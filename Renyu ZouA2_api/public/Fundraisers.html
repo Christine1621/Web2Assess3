@@ -28,7 +28,6 @@
         <!-- Input box to enter the name of the fundraiser or city for the search -->
         <input type="text" id="searchInput" class="input" placeholder="Search for fundraiser name or city." />
         <!-- search button, when clicked, call the searchClickHandler function -->
-        <button onclick="searchClickHandler(event)">Search</button>
       </div>
       <p>City:</p>
       <div id="CityForm"class="searchFilterItem">
@@ -93,15 +92,11 @@ function clearCheckboxes() {
   document.getElementById('results').innerHTML = ''; // Clear the search results
 }
 
-// An asynchronous function to search for fundraisers
 async function searchFundraisers(event) {
   event.preventDefault(); // Blocks the default submission behavior of forms
-
-  const selectedOrganizers = Array.from(document.querySelectorAll('input[name="organizer"]:checked')).map(cb => cb.value);
-  const selectedCategories = Array.from(document.querySelectorAll('#CategoryForm input[name="category"]:checked')).map(cb => cb.value);
   const selectedCities = Array.from(document.querySelectorAll('#CityForm input[name="city"]:checked')).map(cb => cb.value);
-  
-  console.log(selectedOrganizers, selectedCities, selectedCategories);
+  const selectedCategories = Array.from(document.querySelectorAll('#CategoryForm input[name="category"]:checked')).map(cb => cb.value);
+  const selectedInput = document.getElementById('searchInput').value.toLowerCase(); // Get the search input and convert to lowercase
 
   const resultsDiv = document.getElementById('results');
   const errorMessage = document.getElementById('error-message');
@@ -111,7 +106,7 @@ async function searchFundraisers(event) {
   errorMessage.textContent = '';
 
   // Check that at least one filter is selected
-  if (selectedCities.length === 0 && selectedCategories.length === 0) {
+  if (selectedCities.length === 0 && selectedCategories.length === 0 && !selectedInput.trim()) {
     errorMessage.textContent = 'Please select at least one criterion.';
     errorMessage.style.display = 'block';
     return;
@@ -124,7 +119,8 @@ async function searchFundraisers(event) {
   const filtered = fundraisers.filter(fundraiser => {
     return (
       (selectedCities.length === 0 || selectedCities.includes(fundraiser.CITY)) &&
-      (selectedCategories.length === 0 || selectedCategories.includes(String(fundraiser.CATEGORY_ID)))
+      (selectedCategories.length === 0 || selectedCategories.includes(String(fundraiser.CATEGORY_ID))) &&
+      (selectedInput.length === 0 || fundraiser.CAPTION.toLowerCase().includes(selectedInput) || fundraiser.CITY.toLowerCase().includes(selectedInput)) // Filter by search input
     );
   });
 
@@ -159,51 +155,58 @@ function getList() {
   });
 }
 
-    //Obtain the input box element with the id "searchInput" on the page
-    const searchInput = document.getElementById("searchInput");
-    //Define a function that handles search click events asynchronously
-    async function searchClickHandler(e) {
-      event.preventDefault();//Block default events
-      const value = searchInput.value.toLocaleLowerCase();
-      if (!value.trim()) {
-        return;
-      }
-      //Call the getList function to get a list of fundraisers
-      const fundraisers = await getList();
-      const filterData = fundraisers.filter(item => {
-        return Object.values(item).some(e => {
-          return String(e).toLocaleLowerCase().includes(value);
-        });
-      });
-      //A list of elements that generate search results
-      const element = genSearchResultElementList(filterData);
-      document.getElementById('results').innerHTML = element;
-    }
+// Obtain the input box element with the id "searchInput" on the page
+const searchInput = document.getElementById("searchInput");
 
-    function genSearchResultElementList(data) {
-      if (!Array.isArray(data)) {
-        return null;
-      }
-      // Generate a corresponding HTML element string for each fundraiser
-      return data.map(fundraiser => {
-        return `
-          <div>
-            <h3 style="margin-bottom: 5px;">${fundraiser.CAPTION}</h3>
-            <p>Fundraiser ID: ${fundraiser.FUNDRAISER_ID}</p>
-            <p>Organizer: ${fundraiser.ORGANIZER}</p>
-            <p>Target Funding: $${fundraiser.TARGET_FUNDING}</p>
-            <p>Current Funding: $${fundraiser.CURRENT_FUNDING}</p>
-            <p>City: ${fundraiser.CITY}</p>
-            <p>Active: ${fundraiser.ACTIVE ? 'Yes' : 'No'}</p>
-            <p>Category:${fundraiser.NAME}</p>
-            <p>CategoryId: ${fundraiser.CATEGORY_ID}</p>
-            <div class="centered-link">
-                <a href="http://localhost:8080/Leo?id=${fundraiser.FUNDRAISER_ID}">View Details</a>
-            </div>
-          </div>
-        `
-      }).join("");// Convert arrays to strings and concatenate them with empty strings
-    }
+// Define a function that handles search click events asynchronously
+async function searchClickHandler(e) {
+  e.preventDefault(); // Block default events
+  const value = searchInput.value.toLowerCase();
+  if (!value.trim()) {
+    return;
+  }
+  
+  // Call the getList function to get a list of fundraisers
+  const fundraisers = await getList();
+  
+  // Filter the list based on the search input
+  const filterData = fundraisers.filter(item => {
+    return Object.values(item).some(e => {
+      return String(e).toLowerCase().includes(value);
+    });
+  });
+  
+  // Generate a list of elements that represent the search results
+  const element = genSearchResultElementList(filterData);
+  document.getElementById('results').innerHTML = element;
+}
+
+function genSearchResultElementList(data) {
+  if (!Array.isArray(data)) {
+    return null;
+  }
+  
+  // Generate a corresponding HTML element string for each fundraiser
+  return data.map(fundraiser => {
+    return `
+      <div>
+        <h3 style="margin-bottom: 5px;">${fundraiser.CAPTION}</h3>
+        <p>Fundraiser ID: ${fundraiser.FUNDRAISER_ID}</p>
+        <p>Organizer: ${fundraiser.ORGANIZER}</p>
+        <p>Target Funding: $${fundraiser.TARGET_FUNDING}</p>
+        <p>Current Funding: $${fundraiser.CURRENT_FUNDING}</p>
+        <p>City: ${fundraiser.CITY}</p>
+        <p>Active: ${fundraiser.ACTIVE ? 'Yes' : 'No'}</p>
+        <p>Category: ${fundraiser.NAME}</p>
+        <p>CategoryId: ${fundraiser.CATEGORY_ID}</p>
+        <div class="centered-link">
+            <a href="http://localhost:8080/Leo?id=${fundraiser.FUNDRAISER_ID}">View Details</a>
+        </div>
+      </div>
+    `;
+  }).join(""); // Convert arrays to strings and concatenate them with empty strings
+}
+
   </script>
 </body>
 
