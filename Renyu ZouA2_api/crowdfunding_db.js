@@ -1,5 +1,6 @@
 //Introducing the mysql module for interacting with MySQL databases
 const mysql = require('mysql');
+const http = require('http');
 //Create a database connection
 const connection = mysql.createConnection({
     host: 'localhost',

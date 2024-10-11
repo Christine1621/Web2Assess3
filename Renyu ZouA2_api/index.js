@@ -23,7 +23,7 @@ app.get("/donation",(req,res)=>{
 })
 // 启动服务器
 app.listen(PORT, () => {
-  console.log(`服务器正在运行，端口: ${PORT}`);
+  console.log(`server is running,PROR: ${PORT}`);
 //   app.get('/fundraiser/:id', (req, res) => {
 //     res.sendFile(path.join(__dirname, 'Leo.html'));
 // });
