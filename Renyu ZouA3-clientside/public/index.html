@@ -1,0 +1,130 @@
+<!-- Declare the document type to HTML and set the language to English -->
+<!DOCTYPE html>
+<html lang="en">
+<!-- Set the character set to UTF-8 to ensure responsive design on mobile devices, connect to CSS stylesheets, and set page titles -->
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="style.css">
+  <title>Crowdfunding</title>
+</head>
+<!-- Create a navigation menu -->
+
+<body>
+  <nav>
+    <a href="/">Home page</a>
+    <a href="/Fundraisers">Search fundraisers page</a>
+  </nav>
+  <!-- Set the page title -->
+  <h1 class="title">Crowdfund a hope and realize a dream!</h1>
+  <div class="flex content">
+    <!-- Container for the main content area with a flex layout -->
+    <div class="flex-8 card">
+      <h2>Successful crowdfunding cases</h2>
+      <div class="content-list">
+        <p>1. Amy, a young cancer patient, was undergoing a series of expensive treatments. Her family and friends want
+          crowdfunding to reduce the financial burden and allow her to focus on recovery. The project was widely spread
+          through the official website and attracted many people's attention and support. The project managed to raise
+          over $50,000 in a short time frame. The funds not only helped Amy pay for her medical expenses, but also
+          provided psychological support to her family and increased their confidence.</p>
+        <p>2. Alex, a young college student, was seriously injured in an accident and urgently needed surgery and
+          subsequent rehabilitation. Due to the high cost of the treatment, his family faced enormous financial pressure
+          and felt overwhelmed. Later, we launched online crowdfunding through this official website to call on everyone
+          to lend a helping hand. Later, the project attracted extensive support and eventually raising more than
+          $100,000 to ensure that Alex could undergo surgery in time and helped him to recover and return to school. The
+          money not only reduced the financial burden of his family, but also made them feel the warmth and care from
+          the community.</p>
+        <p>3. This project, which aims to help homeless families, provides food, shelter, and educational resources.
+          With the increase of homeless people, many families are facing survival difficulties. The project, launched
+          through the
+          non-profit crowdfunding website, calls for donations and supplies. The program successfully raised more than
+          $200,000, with money used to buy food, provide temporary shelter, and educational support for children. This
+          effort helped multiple families out of trouble and rebuild their lives.</p>
+      </div>
+    </div>
+
+    <div class="flex-4">
+      <!-- Card container for fundraising statistics -->
+      <div class="card">
+        <h2>Fundraising Project statistics:</h2>
+        <div>
+          <p>The total amount of crowdfunding is <b id="amount">$6383915273.78</b> ! !</p>
+          <p>The total number of support actions is <b id="donations">2,418,475</b> !</p>
+          <p>The total number of successful crowdfunding people was <b id="count">26,389</b> !</p>
+        </div>
+      </div>
+      <div class="card">
+        <h2>Fundraising Project Category ID:</h2>
+        <div id="categoryCount"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!--Set up a section for dynamically loading the project-->
+  <section id="fundraisers"></section>
+  
+  <script>
+
+  // Get the statistics
+    fetch('http://localhost:3000/api/statistics').then(
+      response => response.json()
+    ).then(data=>{
+      console.log(data)
+      document.getElementById('amount').innerText = "$"+data.amount;
+      document.getElementById('donations').innerText = data.donations;
+      document.getElementById('count').innerText = data.count;
+    }
+
+    )
+    
+    // Get the number of all the types
+    fetch('http://localhost:3000/api/categoryCount').then(
+      response => response.json()
+    ).then(data=>{
+      console.log(data)
+      document.getElementById('categoryCount').innerHTML = ``;
+      data.forEach(item=>{
+        document.getElementById('categoryCount').innerHTML += `<p>${item.name}: ${item.count}</p>`;
+      })
+     
+    })
+    fetch('http://localhost:3000/api/fundraisers')
+      // Convert the response from the server to JSON format
+      .then(response => response.json())
+      // Once the JSON data is successfully parsed, process the list of fundraisers
+      .then(fundraisers => {
+        // Get the container element where the fundraisers will be displayed
+        const container = document.getElementById('fundraisers');
+        // Iterate over each fundraiser in the retrieved list
+        fundraisers.forEach(fundraiser => {
+          const fundraiserElement = document.createElement('div');// Create a new div element for each fundraiser
+          fundraiserElement.innerHTML = `
+                <h3 style="margin-bottom: 5px;">${fundraiser.CAPTION}</h3>
+                <p>Fundraiser ID: ${fundraiser.FUNDRAISER_ID}</p>
+                <p>Organizer: ${fundraiser.ORGANIZER}</p>
+                <p>Target Funding: $${fundraiser.TARGET_FUNDING}</p>
+                <p>Current Funding: $${fundraiser.CURRENT_FUNDING}</p>
+                <p>City: ${fundraiser.CITY}</p>
+                <p>Active: ${fundraiser.ACTIVE ? 'Yes' : 'No'}</p>
+                <p>Category:${fundraiser.name}</p>
+                <p>Category: ${fundraiser.CATEGORY_ID}</p>
+                <div class="centered-link" onclick="window.location.href='/Leo?id=${fundraiser.FUNDRAISER_ID}'">
+                    <p>View Details</p>
+                </div>
+            `;
+          container.appendChild(fundraiserElement);//Attach each constructed element to the container
+        });
+      })
+      .catch(error => console.error('Error fetching fundraisers:', error));// Handle any errors that occur during the fetch operation
+  </script>
+
+  <footer>
+    <p>Contact information</p>
+    <p>Email: r.zou.12@student.scu.edu.au</p>
+    <p>Telephone code: 123-456-7890</p>
+    <p>If you have any questions, please call the fundraising consultant!</p>
+  </footer>
+</body>
+
+</html>
