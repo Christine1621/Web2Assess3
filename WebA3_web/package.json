@@ -1,0 +1,16 @@
+{
+  "name": "WebA3_web",
+  "version": "1.0.0",
+  "description": "A brief description of your project",
+  "main": "index.js",
+  "scripts": {
+    "mysql": "npm install mysql",
+    "start the ohters": "node controller.js"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.21.1",
+    "mysql": "^2.18.1",
+    "path": "^0.12.7"
+  }
+}

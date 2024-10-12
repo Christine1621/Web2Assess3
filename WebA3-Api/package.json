@@ -1,0 +1,14 @@
+{
+  "name": "Web3A3",
+  "version": "1.0.0",
+  "description": "A brief description of your project",
+  "main": "server.js",   
+  "scripts": {
+    "start the ohters": "node server.js" 
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.21.1",
+    "mysql": "^2.18.1"
+  }
+}
