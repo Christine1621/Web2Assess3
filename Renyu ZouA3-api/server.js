@@ -7,6 +7,8 @@ var concertAPI = require("./controllerAPI/api-controller");
 app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
+
+//设置api前缀
 app.use("/api",concertAPI);
 
 app.listen(3000);

@@ -1,0 +1,53 @@
+<nav>
+  <a href="/admin">Home page</a>
+</nav>
+
+<section class="content" style="text-align: center; padding-top: 20px;">
+  <h1 class="title" id="page-title">Add Fundraiser</h1>
+
+  <form id="fundraiser-form" style="max-width: 600px; margin: 0 auto;">
+    <div class="form-group">
+      <label for="caption">Caption:</label>
+      <input type="text" id="caption" name="caption" required>
+      <div id="caption-error" style="color: red; display: none;">Caption is required.</div>
+    </div>
+
+    <div class="form-group">
+      <label for="organizer">Organizer:</label>
+      <input type="text" id="organizer" name="organizer" required>
+      <div id="organizer-error" style="color: red; display: none;">Organizer is required.</div>
+    </div>
+
+    <div class="form-group">
+      <label for="target-funding">Target Funding:</label>
+      <input type="number" id="target-funding" name="target-funding" min="1" required>
+      <div id="target-funding-error" style="color: red; display: none;">Target Funding must be greater than 0.</div>
+    </div>
+
+    <div class="form-group">
+      <label for="current-funding">Current Funding:</label>
+      <span id="current-funding-display" class="current-funding"></span>
+      <input type="number" id="current-funding" name="current-funding" min="0" required>
+      <div id="current-funding-error" style="color: red; display: none;">Current Funding cannot be greater than Target Funding.</div>
+    </div>
+
+    <div class="form-group">
+      <label for="city">City:</label>
+      <input type="text" id="city" name="city" required>
+      <div id="city-error" style="color: red; display: none;">City is required.</div>
+    </div>
+
+    <div class="form-group">
+      <label for="category">Category:</label>
+      <select id="category" name="category" required>
+        <option value="">Select Category</option>
+        
+      </select>
+      <div id="category-error" style="color: red; display: none;">Please select a category.</div>
+    </div>
+
+    <button id="save-button" type="button" style="font-size: 16px; font-weight: bold; padding: 10px 15px; margin-top: 10px; background-color: #4CAF50; color: white; border: none; border-radius: 5px; cursor: pointer;">
+      Save
+    </button>
+  </form>
+</section>

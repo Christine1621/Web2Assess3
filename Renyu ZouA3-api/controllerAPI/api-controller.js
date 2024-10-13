@@ -12,7 +12,7 @@ router.get('/fundraisers', (req, res) => {
     });
 });
   
-// Get all donation data based on the fundraiser id
+// Get all donation data based on the fundraiser id 
 router.get('/donations/:id', (req, res) => {
     const sql= `SELECT DATE_FORMAT(date, '%Y-%m-%d %H:%i') AS date, amount, giver FROM donation WHERE fundraiser_id = ? ORDER BY date DESC`;
     db.query(sql, [req.params.id], (err, results) => {
@@ -59,7 +59,7 @@ router.get('/statistics', (req, res) => {
     });
 });
 
-// Modify the fundraiser
+// Modify the fundraiser  
 router.put('/edit/fundraiser', (req, res) => {
     const { id, caption, organizer, targetFunding, currentFunding, city, category } = req.body;
 
@@ -72,7 +72,9 @@ router.put('/edit/fundraiser', (req, res) => {
     });
 });
 
-// Add a fundraiser
+
+
+// Add a fundraiser  
 router.post('/add/fundraiser', (req, res) => {
     const { caption, organizer, targetFunding, currentFunding, city, category } = req.body;
 
@@ -96,6 +98,9 @@ router.get('/cities', (req, res) => {
     });
 });
 
+
+
+
 // Get all categories
 router.get('/categories', (req, res) => {
     const sql = 'SELECT * FROM category';
@@ -107,7 +112,7 @@ router.get('/categories', (req, res) => {
     });
 });
 
-// Add donations according to id
+// Add donations according to id    
 router.post('/donate', (req, res) => {
     const { fundraiserId, donationAmount, giver } = req.body;
 
@@ -137,7 +142,7 @@ router.get('/fundraiser/:id', (req, res) => {
     });
 });
 
-// Delete the fundraising organization with the specified id
+// Delete the fundraising organization with the specified id 
 router.delete('/fundraisers/delete/:id', (req, res) => {
     const { id } = req.params;
     const sql1 = 'SELECT * FROM donation WHERE fundraiser_id = ?';
@@ -145,6 +150,8 @@ router.delete('/fundraisers/delete/:id', (req, res) => {
         if (err) {
             return res.status(500).json({ error: err.message });
         }
+
+       
         if (results.length > 0) {
             return res.json({ state: 0, message: "There are donations for this fundraiser, cannot be deleted" });
         }

@@ -1,0 +1,36 @@
+<nav>
+  <a href="/">Home page</a>
+  <a href="/Fundraisers">Search fundraisers page</a>
+</nav>
+<header>
+  <h1 class="title">Search fundraisers page</h1>
+</header>
+
+<div class="content">
+</div>
+<div class="content">
+  <form id="search-form">
+    <!-- Create a search box -->
+    <div class="search-box">
+      <!-- Input box to enter the name of the fundraiser or city for the search -->
+      <input type="text" id="searchInput" class="input" placeholder="Search for fundraiser name or city." />
+      <!-- search button, when clicked, call the searchClickHandler function -->
+    </div>
+    <p>City:</p>
+    <div id="CityForm"class="searchFilterItem">
+
+    </div>
+
+    <p>Category:</p>
+    <div id="CategoryForm" class="searchFilterItem">
+    </div>
+    <!-- Submit the search button -->
+    <button type="button" (click)="searchFundraisers()">Search</button>
+    <!-- Trigger the button to clear the checkbox -->
+    <button type="button" (click)="clearCheckboxes()">Clear</button>
+  </form>
+
+  <div id="error-message" style="color: red; display: none;"></div>
+  <!-- section for displaying search results -->
+  <section id="results"></section>
+</div>

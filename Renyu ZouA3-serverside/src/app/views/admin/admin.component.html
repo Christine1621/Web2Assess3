@@ -1,0 +1,55 @@
+<!-- Navigation -->
+<nav>
+  <a href="/admin">Home page</a>
+</nav>
+
+<h1 class="title">Admin - Manage Fundraisers</h1>
+
+<!-- Main content area -->
+<div class="flex content">
+  <div class="flex-8 card">
+    <h2>Fundraiser List</h2>
+    <!-- Add button -->
+    <div class="centered-link">
+      <button id="add-fundraiser" onclick= "location.href= '/addFundraisers' ">Add New Fundraiser</button>
+    </div>
+
+    <!-- Fundraiser table -->
+    <table id="fundraiser-table" class="table">
+      <thead>
+      <tr>
+        <th>ID</th>
+        <th>Organizer</th>
+        <th>Caption</th>
+        <th>Target Funding</th>
+        <th>Current Funding</th>
+        <th>Status</th>
+        <th>City</th>
+        <th>Action</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let fundraiser of fundraisers">
+        <td>{{fundraiser.FUNDRAISER_ID}}</td>
+        <td>{{fundraiser.ORGANIZER}}</td>
+        <td>{{fundraiser.CAPTION}}</td>
+        <td>{{fundraiser.TARGET_FUNDING}}</td>
+        <td>{{fundraiser.CURRENT_FUNDING}}</td>
+        <td>{{fundraiser.ACTIVE ? 'Active' : 'Inactive'}}</td>
+        <td>{{fundraiser.CITY}}</td>
+        <td>
+          <button class="edit-btn" (click)="editFundraiser(fundraiser.FUNDRAISER_ID)">Edit</button>
+          <button class="delete-btn" (click)="deleteFundraiser(fundraiser.FUNDRAISER_ID)">Delete</button>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<footer>
+  <p>Contact information</p>
+  <p>Email: r.zou.12@student.scu.edu.au</p>
+  <p>Telephone code: 123-456-7890</p>
+  <p>If you have any questions, please call the fundraising consultant!</p>
+</footer>

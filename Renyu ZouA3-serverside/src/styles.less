@@ -1,0 +1,207 @@
+/* General styles remain the same */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  color: #333;
+  background-color: #f5ffe8;
+}
+
+/* Navigation styles */
+nav {
+  background-color: #d6f8a4;
+  padding: 20px 20px;
+}
+
+nav a {
+  margin: 0 30px;
+  text-decoration: none;
+  color: #584343;
+  margin-right: 50px;
+  font-size: 18px;
+  font-weight: bold;
+}
+
+/* Title and layout styles */
+.title {
+  text-align: center;
+  margin: 30px 0;
+  font-size: 50px;
+}
+
+.flex {
+  display: flex;
+}
+
+.flex-8 {
+  flex: 8;
+}
+
+.content {
+  margin: 40px 60px;
+}
+
+/* Table styles */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+  font-size: 16px;
+}
+
+table th, table td {
+  padding: 12px 15px; /* Add padding to create space between text and cell borders */
+  text-align: left;
+  border-bottom: 1px solid #ddd; /* Border between rows */
+  min-width: 100px; /* Set a minimum width for the columns */
+}
+
+table th {
+  background-color: #f0f0f0;
+  font-weight: bold;
+  border-bottom: 2px solid #ccc;
+}
+
+table tr:nth-child(even) {
+  background-color: #f9f9f9; /* Alternating row color */
+}
+
+table tr:hover {
+  background-color: #e0f7d4; /* Highlight row on hover */
+}
+
+table td button {
+  padding: 5px 10px;
+  border: none;
+  background-color: #5ca9fb;
+  color: white;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+table td button:hover {
+  background-color: #3a8cdb;
+}
+
+/* Adjust the width of specific columns for better layout */
+table th:nth-child(1), /* ID */
+table td:nth-child(1) {
+  min-width: 50px; /* Example for ID column */
+}
+
+table th:nth-child(2), /* Organizer */
+table td:nth-child(2) {
+  min-width: 120px; /* Example for Organizer column */
+}
+
+table th:nth-child(3), /* Caption */
+table td:nth-child(3) {
+  min-width: 150px; /* Example for Caption column */
+}
+
+table th:nth-child(4), /* Target Funding */
+table td:nth-child(4) {
+  min-width: 130px; /* Example for Target Funding column */
+}
+
+table th:nth-child(5), /* Current Funding */
+table td:nth-child(5) {
+  min-width: 130px; /* Example for Current Funding column */
+}
+
+table th:nth-child(6), /* Status */
+table td:nth-child(6) {
+  min-width: 80px; /* Example for Status column */
+}
+
+table th:nth-child(7), /* Actions */
+table td:nth-child(7) {
+  min-width: 120px; /* Example for Actions column */
+}
+
+table th:nth-child(8), /* City */
+table td:nth-child(8) {
+  min-width: 100px; /* Example for City column */
+}
+
+
+
+/* Button styles */
+.edit-btn {
+  background-color: #095739;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.edit-btn:hover {
+  background-color: #084c30;
+}
+.centered-link {
+  text-align: right;
+  margin: 10px 0;
+}
+
+.centered-link button {
+  padding: 10px 20px;
+  font-size: 16px;
+  background-color: #095739;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.centered-link button:hover {
+  background-color: #084c30;
+}
+
+/* Delete button in red */
+table td button.delete-btn {
+  background-color: #ff4d4d;
+  color: white;
+}
+
+table td button.delete-btn:hover {
+  background-color: #ff1a1a;
+}
+
+
+
+
+footer {
+  padding: 20px 60px;
+  background-color: #efefef;
+}
+.form-group {
+  margin-bottom: 20px;
+}
+
+.form-group label {
+  font-size: 18px;
+  display: block;
+  margin-bottom: 5px;
+}
+
+.form-group input,
+.form-group select {
+  font-size: 16px;
+  font-weight: bold;
+  padding: 10px;
+  width: 100%;
+  max-width: 600px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-sizing: border-box;
+}
+
+.current-funding {
+  font-size: 18px;
+  font-weight: bold;
+  margin-top: 10px;
+}
